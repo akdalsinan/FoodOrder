@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn-primary {
+  @apply text-white px-[30px] py-[8px] rounded-3xl bg-primary
+    cursor-pointer hover:opacity-80 transition-all;
+}
+
+:where(.css-dev-only-do-not-override-1vr7spz).ant-input-search
+  > .ant-input-group
+  > .ant-input-group-addon:last-child
+  .ant-input-search-button {
+  @apply bg-primary;
+}
+
+:where(.css-dev-only-do-not-override-1vr7spz).ant-modal
+  .ant-modal-footer
+  .ant-btn
+  + .ant-btn:not(.ant-dropdown-trigger) {
+  @apply bg-primary;
+}
+
+.search{
+  @apply px-[30px];
+}
