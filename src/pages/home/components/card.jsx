@@ -1,5 +1,5 @@
 import React from "react";
-import resim4 from "../../../../public/images/f4.png";
+import resim4 from "../../../../images/f4.png";
 import { Button } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 

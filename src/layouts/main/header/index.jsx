@@ -59,7 +59,7 @@ function Header() {
               <FaSearch />
             </button>
           </a>
-          <Link to="/about" className="hover:text-primary cursor-pointer">
+          <Link to="/shopbasket" className="hover:text-primary cursor-pointer">
             <button className="btn-primary"> sipariş ver</button>
           </Link>
         </div>

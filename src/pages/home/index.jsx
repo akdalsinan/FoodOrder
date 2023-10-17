@@ -4,7 +4,7 @@ import { FileTextOutlined } from "@ant-design/icons";
 import HomeAbout from "./homeAbout";
 import HomeBack from "./homeBack";
 import HomeMenu from "./homeMenu";
-import pizza from "../../../public/images/helppizza.png";
+import pizza from "../../../images/helppizza.png";
 
 function Home() {
   return (

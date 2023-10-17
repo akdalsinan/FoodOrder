@@ -1,7 +1,7 @@
 import React from "react";
-import resim4 from "../../../public/images/about.png";
-import { Button, Col, Row } from "antd";
-import { FaSearch } from "react-icons/fa";
+import resim4 from "../../../images/about.png";
+import { Col, Row } from "antd";
+
 import {
   FaXTwitter,
   FaFacebookF,

@@ -6,6 +6,7 @@ import User from "../pages/user";
 import NotFound from "../pages/notFound";
 import MainLayout from "../layouts/main";
 import Contact from "../pages/contact";
+import Basket from "../pages/basket";
 
 const routes = createBrowserRouter([
   {
@@ -34,7 +35,7 @@ const routes = createBrowserRouter([
       },
       {
         path: "shopbasket",
-        element: "shopbasket",
+        element: <Basket/>,
       },
       {
         path: "/*",

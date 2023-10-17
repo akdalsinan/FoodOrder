@@ -1,34 +1,30 @@
 import React, { useState } from "react";
 import { Button, Form, Input, Flex, Tabs, Checkbox } from "antd";
 import FormItem from "antd/es/form/FormItem";
-
-import closeeye from "../../../public/images/closeeye.png";
-import openeye from "../../../public/images/openeye.png";
-import bgImage from "../../../public/images/bgimage.jpg";
-import puzzleImage from "../../../public/images/puzzleurl.png";
-
-import ReCAPTCHA from "react-google-recaptcha";
-import { createRef } from "react";
-
 import SliderCaptcha from "rc-slider-captcha";
-import { data } from "autoprefixer";
+
+import closeeye from "../../../images/closeeye.png";
+import openeye from "../../../images/openeye.png";
+import bgImage from "../../../images/bgimage.jpg";
+import puzzleImage from "../../../images/puzzleurl.png";
 
 function User() {
-  const recaptchaRef = createRef();
   const [checked, setchecked] = useState(false);
   const [slider, setSlider] = useState(false);
   const [photo, setPhoto] = useState(openeye);
+
   const onchange = (e) => {
     setchecked(e.target.checked);
   };
+
   const onFinish = (value) => {
     console.log(value);
   };
-  const handleRecaptchaChange = (value) => {
-    console.log("reCAPTCHA value:", value);
-  };
-console.log("slider",slider)
-console.log("checked",checked)
+
+  const customTipText = "asdasda"
+
+  console.log("slider", slider);
+  console.log("checked", checked);
   const items = [
     {
       key: "1",
@@ -85,25 +81,17 @@ console.log("checked",checked)
               <a className="">Aydınlatma Metnini</a>
               Okudum
             </h>
-            {/* <ReCAPTCHA
-              ref={recaptchaRef}
-              sitekey={"6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"}
-              onChange={handleRecaptchaChange}
-             // grecaptcha={grecaptchaObject}
-            ></ReCAPTCHA> */}
 
             <SliderCaptcha
-              placement="asdasdadsadasdas"
+              tipText={customTipText}
               mode="float"
               request={async () => {
-                // await sleep();
                 return {
                   bgUrl: bgImage,
                   puzzleUrl: puzzleImage,
                 };
               }}
               onVerify={async (data) => {
-                // console.log(data.errorCount);
                 if (data?.x && data.x > 87 && data.x < 93) {
                   setSlider(true);
                   return Promise.resolve();
@@ -115,7 +103,7 @@ console.log("checked",checked)
 
             <FormItem>
               <Button
-                disabled={!(checked && slider) }
+                disabled={!(checked && slider)}
                 htmlType="submit "
                 className="bg-primary text-white hover:text-secondary cursor-pointer"
               >

@@ -3,9 +3,9 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import ViewMoreButton from "./components/viewMoreButton";
 
-import resim2 from "../../../public/images/aboutyan1.png";
-import resim3 from "../../../public/images/aboutOrta.png";
-import resim4 from "../../../public/images/s2.png";
+import resim2 from "../../../images/aboutyan1.png";
+import resim3 from "../../../images/aboutOrta.png";
+import resim4 from "../../../images/s2.png";
 
 AOS.init();
 
