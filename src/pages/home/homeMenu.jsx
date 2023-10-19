@@ -9,7 +9,7 @@ import {
   getAllHamburger,
   getAllPizza,
   getAllMakarna,
-} from "../../../actions/foodActions";
+} from "../../actions/foodActions";
 
 function HomeMenu() {
   const dispatch = useDispatch();

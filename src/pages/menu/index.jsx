@@ -8,7 +8,7 @@ import {
   getAllHamburger,
   getAllPizza,
   getAllMakarna,
-} from "../../../actions/foodActions";
+} from "../../actions/foodActions";
 
 import { useDispatch, useSelector } from "react-redux";
 

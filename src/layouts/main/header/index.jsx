@@ -38,7 +38,7 @@ function Header() {
               menu
             </Link>
             <Link
-              to="/booktable"
+              to="/contact"
               className="font-sans px-[8px] py-[14px] uppercase hover:text-primary cursor-pointer"
             >
               contact

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllHamburger, getAllPizza,getAllMakarna } from "../../actions/foodActions";
+import { getAllHamburger, getAllPizza,getAllMakarna } from "../actions/foodActions";
 
 const initialState = { hamburger: [], pizza: [], makarna: [], loading: false };
 

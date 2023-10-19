@@ -1,11 +1,8 @@
-import { Col, Input, Form, Row, Button, Checkbox } from "antd";
-import FormItem from "antd/es/form/FormItem";
+import { Col, Input, Form, Row, Button } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import React, { useState } from "react";
 
 function Contact() {
-  const [bool, setBool] = useState(false);
-  console.log(bool);
   const onFinish = (value) => {
     console.log(value);
   };
@@ -14,30 +11,27 @@ function Contact() {
       <Row>
         <Col offset={3} span={8}>
           <Form onFinish={onFinish}>
-            <FormItem name="nameSurname">
+            <Form.Item name="nameSurname">
               <Input placeholder="Name Surname" />
-            </FormItem>
-            <FormItem name="gmail">
+            </Form.Item>
+            <Form.Item name="gmail">
               <Input placeholder="Mail" />
-            </FormItem>
-            <FormItem name="PhoneNumber">
+            </Form.Item>
+            <Form.Item name="PhoneNumber">
               <Input placeholder="Phone Number" />
-            </FormItem>
-            <FormItem name="TextArea">
+            </Form.Item>
+            <Form.Item name="TextArea">
               <TextArea rows={4} placeholder="You can write in this field" />
-            </FormItem>
+            </Form.Item>
 
-            <FormItem>
+            <Form.Item>
               <Button
-                disabled
-                // style={{display:"none"}}
-                type={bool}
                 htmlType="submit "
                 className="bg-primary text-white hover:text-secondary cursor-pointer"
               >
                 SEND
               </Button>
-            </FormItem>
+            </Form.Item>
           </Form>
         </Col>
 
@@ -47,8 +41,8 @@ function Contact() {
             width="500"
             height="350"
             loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
+            referrerPolicy="no-referrer-when-downgrade"
+          />
         </Col>
       </Row>
     </div>

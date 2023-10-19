@@ -7,6 +7,8 @@ import NotFound from "../pages/notFound";
 import MainLayout from "../layouts/main";
 import Contact from "../pages/contact";
 import Basket from "../pages/basket";
+import Admin from "../pages/admin";
+
 
 const routes = createBrowserRouter([
   {
@@ -26,7 +28,7 @@ const routes = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "booktable",
+        path: "contact",
         element: <Contact/>,
       },
       {
@@ -36,6 +38,10 @@ const routes = createBrowserRouter([
       {
         path: "shopbasket",
         element: <Basket/>,
+      },
+      {
+        path: "admin",
+        element: <Admin/>,
       },
       {
         path: "/*",

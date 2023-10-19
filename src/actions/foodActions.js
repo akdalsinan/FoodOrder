@@ -1,6 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// ------------- GET METHODS ------------------- //
+
 export const getAllHamburger = createAsyncThunk(
   "food/getAllHamburger",
   async () => {
@@ -24,3 +26,5 @@ export const getAllMakarna = createAsyncThunk(
     return response.data;
   }
 );
+
+// ------------- POST METHODS ------------------- //
