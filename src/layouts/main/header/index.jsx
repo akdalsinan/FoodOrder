@@ -1,16 +1,59 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { FaShoppingCart, FaUserAlt, FaSearch } from "react-icons/fa";
 import Logo from "./logo";
 import { Link } from "react-router-dom";
 import ModalSearch from "./modalSearch";
+import { Button, Dropdown } from "antd";
+import { useSelector } from "react-redux";
 
 function Header() {
+  const tokendeğeri = useSelector((state) => state.tokenBool.bool);
+
+
+  console.log("tokendeğeri", tokendeğeri);
+
+  const items = [
+    {
+      key: "1",
+      label: (
+        <Link to="/profile" className="hover:text-primary cursor-pointer">
+          Profil
+        </Link>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <Link to="/user" className="hover:text-primary cursor-pointer">
+          Çıkış Yap
+        </Link>
+      ),
+    },
+  ];
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [sessionToken, setSessionToken] = useState(false);
+
   const showModal = () => {
     setIsModalOpen(true);
     console.log("tıklandı", isModalOpen);
   };
+  // const token = sessionStorage.getItem("token");
+  // if (token ) {
+  //   console.log("token false oldu");
+  // } else {
+  //   console.log("token true oldu");
+  // }
+  // useEffect(() => {
+  //   if (token === false) {
+  //     setSessionToken(false);
+  //   } else {
+  //     setSessionToken(true);
+  //   }
+  // }, [token]);
+
+  // console.log("tokenSet", sessionToken);
 
   return (
     <div className="h-[5.5rem]  bg-secondary ">
@@ -23,7 +66,7 @@ function Header() {
               to="/"
               className="font-sans px-[8px] py-[14px] uppercase hover:text-primary cursor-pointer "
             >
-              home  
+              home
             </Link>
             <Link
               to="about"
@@ -46,9 +89,17 @@ function Header() {
           </ul>
         </nav>
         <div className="py-[auto] text-white flex gap-x-4 items-center">
-          <Link to="/user" className="hover:text-primary cursor-pointer">
-            <FaUserAlt />
-          </Link>
+          {tokendeğeri === true ? (
+            <Dropdown menu={{ items }} placement="bottom">
+              <button className="hover:text-primary cursor-pointer">
+                <FaUserAlt />
+              </button>
+            </Dropdown>
+          ) : (
+            <Link to="/user" className="hover:text-primary cursor-pointer">
+              <FaUserAlt />
+            </Link>
+          )}
 
           <Link to="/shopbasket" className="hover:text-primary cursor-pointer">
             <FaShoppingCart />

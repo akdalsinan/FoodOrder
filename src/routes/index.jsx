@@ -8,6 +8,7 @@ import MainLayout from "../layouts/main";
 import Contact from "../pages/contact";
 import Basket from "../pages/basket";
 import Admin from "../pages/admin";
+import Profil from "../pages/profil";
 
 
 const routes = createBrowserRouter([
@@ -42,6 +43,10 @@ const routes = createBrowserRouter([
       {
         path: "admin",
         element: <Admin/>,
+      },
+      {
+        path: "profile",
+        element: <Profil/>,
       },
       {
         path: "/*",

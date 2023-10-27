@@ -19,7 +19,6 @@ const LoginPage = () => {
   const navigate=useNavigate()
 
 
-
   const onFinish = (value) => {
     dispatch(
       loginUser({
@@ -29,7 +28,8 @@ const LoginPage = () => {
     ).then((e) => {
       if (e.payload.message === "Giris basarili") {
         MyNotification("success", e.payload.message);
-        navigate("/shopbasket")   
+        sessionStorage.setItem('token',  e.payload.accessToken)
+        navigate("/profile")   
        
       } 
       else if((e.payload === "Hatalı şifre")) {
