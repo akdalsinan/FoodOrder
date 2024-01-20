@@ -85,7 +85,6 @@ function Home() {
           </button>
         </Popover>
       </div>
-
       <HomeBack />
       <HomeMenu />
       <HomeAbout />

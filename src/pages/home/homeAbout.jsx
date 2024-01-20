@@ -27,11 +27,12 @@ function HomeAbout() {
             display: "flex",
             flexWrap: "wrap",
             alignItems: "center",
-            gap: 180,
+            justifyContent: "center",
+            gap: 200,
           }}
         >
           <div>
-            <figure style={{ maxWidth: "100%" }}>
+            <figure>
               <img
                 data-aos="fade-down"
                 data-aos-delay="50"

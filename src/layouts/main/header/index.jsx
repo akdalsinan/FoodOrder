@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 function Header() {
   const tokendeğeri = useSelector((state) => state.tokenBool.bool);
 
-
   console.log("tokendeğeri", tokendeğeri);
 
   const items = [
@@ -57,11 +56,11 @@ function Header() {
 
   return (
     <div className="h-[5.5rem]  bg-secondary ">
-      <div className=" mx-auto bg-secondary flex justify-between h-full">
+      <div className=" mx-auto bg-secondary flex justify-between h-full px-20">
         <Logo />
 
-        <nav>
-          <ul className="flex text-white  justify-between">
+        <nav className="flex justify-center">
+          <ul className="flex items-center text-white justify-between">
             <Link
               to="/"
               className="font-sans px-[8px] py-[14px] uppercase hover:text-primary cursor-pointer "
@@ -111,7 +110,7 @@ function Header() {
             </button>
           </a>
           <Link to="/shopbasket" className="hover:text-primary cursor-pointer">
-            <button className="btn-primary"> sipariş ver</button>
+            <button className="btn-primary"> Order Now</button>
           </Link>
         </div>
         <ModalSearch

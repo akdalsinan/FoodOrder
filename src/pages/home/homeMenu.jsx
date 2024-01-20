@@ -21,17 +21,12 @@ function HomeMenu() {
     dispatch(getAllMakarna());
   }, []);
 
-  const maxViewCard=6;
+  const maxViewCard = 6;
 
   const items = [
     {
       label: (
-        <div
-          style={{
-            color: "red",
-            textAlign: "center",
-          }}
-        >
+        <div className="font-sans text-secondary hover:text-red-500 cursor-pointer font-bold">
           Pizza
         </div>
       ),
@@ -41,7 +36,11 @@ function HomeMenu() {
           <Row gutter={[16, 24]}>
             {data.pizza.slice(0, maxViewCard).map((items) => (
               <Col span={8} key={items.id}>
-                <CardItem typesName={items.typesname} foodName={"Pizza"} price={items.price} />
+                <CardItem
+                  typesName={items.typesname}
+                  foodName={"Pizza"}
+                  price={items.price}
+                />
               </Col>
             ))}
 
@@ -53,14 +52,22 @@ function HomeMenu() {
       ),
     },
     {
-      label: "hamburger",
+      label: (
+        <div className="font-sans text-secondary hover:text-red-500 cursor-pointer font-bold">
+          Hamburger
+        </div>
+      ),
       key: "2",
       children: (
         <div style={{ marginLeft: 200, marginRight: 200 }}>
           <Row gutter={[16, 24]}>
             {data.hamburger.slice(0, maxViewCard).map((items) => (
               <Col span={8} key={items.id}>
-                <CardItem typesName={items.typesname} foodName={"Hamburger"} price={items.price} />
+                <CardItem
+                  typesName={items.typesname}
+                  foodName={"Hamburger"}
+                  price={items.price}
+                />
               </Col>
             ))}
 
@@ -72,14 +79,22 @@ function HomeMenu() {
       ),
     },
     {
-      label: "makarna",
+      label: (
+        <div className="font-sans text-secondary hover:text-red-500 cursor-pointer font-bold">
+          Makarna
+        </div>
+      ),
       key: "3",
       children: (
         <div style={{ marginLeft: 200, marginRight: 200 }}>
           <Row gutter={[16, 24]}>
             {data.makarna.slice(0, maxViewCard).map((items) => (
               <Col span={8} key={items.id}>
-                <CardItem typesName={items.typesname} foodName={"Makarna"} price={items.price} />
+                <CardItem
+                  typesName={items.typesname}
+                  foodName={"Makarna"}
+                  price={items.price}
+                />
               </Col>
             ))}
 

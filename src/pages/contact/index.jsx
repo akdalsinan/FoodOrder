@@ -7,7 +7,7 @@ function Contact() {
     console.log(value);
   };
   return (
-    <div className="mt-5">
+    <div className="mt-5 ">
       <Row>
         <Col offset={3} span={8}>
           <Form onFinish={onFinish}>
