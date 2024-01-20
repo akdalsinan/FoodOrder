@@ -5,13 +5,10 @@ import { Link } from "react-router-dom";
 function HomeBack() {
   return (
     <div
+      className="relative  bg-cover bg-center"
       style={{
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
         backgroundImage: "url(/images/ham.jpg)",
-        position: "relative",
-        height: "600px",
-        backgroundPositionY: "center",
+        height: "calc(100vh - 88px)",
       }}
     >
       <Carousel
@@ -36,7 +33,7 @@ function HomeBack() {
           <Link to="/about" className="hover:text-primary cursor-pointer">
             <button style={{ marginLeft: "100px" }} className="btn-primary">
               {" "}
-              sipariş ver
+              Order Now
             </button>
           </Link>
         </div>
@@ -52,7 +49,7 @@ function HomeBack() {
           </h1>
           <Link to="/about" className="hover:text-primary cursor-pointer">
             <button style={{ marginLeft: "100px" }} className="btn-primary">
-              sipariş ver
+              Order Now
             </button>
           </Link>
         </div>

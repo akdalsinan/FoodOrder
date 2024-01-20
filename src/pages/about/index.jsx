@@ -12,7 +12,7 @@ import SocialButton from "./components/socialButton";
 
 function About() {
   return (
-    <div className="mt-8">
+    <div className="mt-8 ">
       <Row justify={"center"}>
         <Col span={10}>
           <h1 className="text-4xl font-dancing"> About </h1>

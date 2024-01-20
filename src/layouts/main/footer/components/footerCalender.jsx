@@ -18,7 +18,7 @@ function FooterCalender() {
   var tomorrowAfter = moment().clone().add(2, "days").format("ddd");
 
   return (
-    <div>
+    <div className="h-[150px] mt-2">
       <div className=" flex bg-secondary justify-start md:justify-center   mx-auto py-4 px-2  md:mx-12 mb-10">
         <div className="flex group hover:bg-red-800 hover:shadow-lg hover-dark-shadow rounded-full mx-1 transition-all	duration-300	 cursor-pointer justify-center  w-16">
           <div className="flex items-center px-4 py-4">
