@@ -21,9 +21,11 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 
-import avatarImage from "../../../images/avatar/2.jpg";
+// import avatarImage from "../../../images/avatar/2.jpg";
 
 const Index = () => {
+  const [avatarImage, setAvatarImage] = useState("../../../images/f6.png");
+
   const dispatch = useDispatch();
 
   // const sessionToken = sessionStorage.getItem("token");
@@ -44,6 +46,7 @@ const Index = () => {
   //     console.log("errr", err.request.status);
   //   });
 
+  const id = 2;
   return (
     <>
       <Row>
@@ -72,31 +75,18 @@ const Index = () => {
                   content={
                     <Flex gap="small" align="flex-start" vertical>
                       <Segmented
-                        onChange={(value) => console.log(value)}
-                        options={[
-                          {
-                            label: (
-                              <div>
-                                <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />
-                              </div>
-                            ),
-                            value: "user1",
-                          },
-                          {
-                            label: (
-                              <div>
-                                <Avatar
-                                  style={{
-                                    backgroundColor: "#f56a00",
-                                  }}
-                                >
-                                  K
-                                </Avatar>
-                              </div>
-                            ),
-                            value: "user2",
-                          },
-                        ]}
+                        onChange={(value) => setAvatarImage(value)}
+                        options={Array.from({ length: 6 }, (_, index) => ({
+                          label: (
+                            <div key={index + 1}>
+                              <Avatar
+                                style={{ height: "60px", width: "60px" }}
+                                src={`../../../images/avatar/${index + 1}.jpg`}
+                              />
+                            </div>
+                          ),
+                          value: `../../../images/avatar/${index + 1}.jpg`,
+                        }))}
                       />
                     </Flex>
                   }
