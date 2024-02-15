@@ -4,6 +4,8 @@ import { Col, Row, Space, Tabs } from "antd";
 import CardItem from "./components/card";
 import ViewMoreButton from "./components/viewMoreButton";
 
+import data from "../../mockData";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllHamburger,
@@ -12,14 +14,14 @@ import {
 } from "../../actions/foodActions";
 
 function HomeMenu() {
-  const dispatch = useDispatch();
-  const data = useSelector((state) => state.foods);
+  // const dispatch = useDispatch();
+  // const data = useSelector((state) => state.foods);
 
-  useEffect(() => {
-    dispatch(getAllHamburger());
-    dispatch(getAllPizza());
-    dispatch(getAllMakarna());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getAllHamburger());
+  //   dispatch(getAllPizza());
+  //   dispatch(getAllMakarna());
+  // }, []);
 
   const maxViewCard = 6;
 
@@ -37,6 +39,7 @@ function HomeMenu() {
             {data.pizza.slice(0, maxViewCard).map((items) => (
               <Col span={8} key={items.id}>
                 <CardItem
+                  items={items}
                   typesName={items.typesname}
                   foodName={"Pizza"}
                   price={items.price}
@@ -64,6 +67,7 @@ function HomeMenu() {
             {data.hamburger.slice(0, maxViewCard).map((items) => (
               <Col span={8} key={items.id}>
                 <CardItem
+                  items={items}
                   typesName={items.typesname}
                   foodName={"Hamburger"}
                   price={items.price}
@@ -91,6 +95,7 @@ function HomeMenu() {
             {data.makarna.slice(0, maxViewCard).map((items) => (
               <Col span={8} key={items.id}>
                 <CardItem
+                  items={items}
                   typesName={items.typesname}
                   foodName={"Makarna"}
                   price={items.price}
