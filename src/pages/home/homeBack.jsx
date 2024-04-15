@@ -8,7 +8,7 @@ function HomeBack() {
     <div
       className="relative  bg-cover bg-center"
       style={{
-        backgroundImage: { ham },
+        backgroundImage: `url(${ham})`,
         height: "calc(100vh - 88px)",
       }}
     >
