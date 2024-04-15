@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoCallSharp, IoMail } from "react-icons/io5";
-import ContactLinks from "./ContactLinks.jsx";
+import ContactLinks from "./ContactLinks";
 
 function FooterContact() {
   return (
