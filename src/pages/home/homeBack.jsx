@@ -1,13 +1,14 @@
 import React from "react";
 import { Carousel } from "antd";
 import { Link } from "react-router-dom";
+import ham from "../../../images/ham.jpg";
 
 function HomeBack() {
   return (
     <div
       className="relative  bg-cover bg-center"
       style={{
-        backgroundImage: "url(/images/ham.jpg)",
+        backgroundImage: { ham },
         height: "calc(100vh - 88px)",
       }}
     >
@@ -28,7 +29,7 @@ function HomeBack() {
             Doloremque, itaque aperiam facilis rerum, commodi, temporibus
             sapiente ad mollitia laborum quam quisquam esse error unde. Tempora
             ex doloremque, labore, sunt repellat dolore, iste magni quos nihil
-            ducimus libero ipsam.
+            ducimus libero ipsamss.
           </h1>
           <Link to="/about" className="hover:text-primary cursor-pointer">
             <button style={{ marginLeft: "100px" }} className="btn-primary">
