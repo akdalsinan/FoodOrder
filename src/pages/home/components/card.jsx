@@ -3,7 +3,11 @@ import resim4 from "../../../../images/f4.png";
 import { Button } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 
-function CardItem({ typesName, foodName, price }) {
+import { addBasket } from "../../../reducer/basket";
+import { useDispatch } from "react-redux";
+
+function CardItem({ typesName, foodName, price, items }) {
+  const dispatch = useDispatch();
   return (
     <div className="relative group cursor-pointer group overflow-hidden  text-gray-50 h-72 w-56 rounded-2xl hover:duration-700 duration-700">
       <div className="w-56 h-72 bg-secondary text-primary flex justify-center items-center">
@@ -27,6 +31,7 @@ function CardItem({ typesName, foodName, price }) {
             icon={<ShoppingCartOutlined />}
             type="primary"
             shape="circle"
+            onClick={() => dispatch(addBasket({ items }))}
           ></Button>
         </div>
       </div>

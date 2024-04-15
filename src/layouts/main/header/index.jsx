@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 
 import { FaShoppingCart, FaUserAlt, FaSearch } from "react-icons/fa";
+import { ShoppingCartOutlined } from "@ant-design/icons";
 import Logo from "./logo";
 import { Link } from "react-router-dom";
 import ModalSearch from "./modalSearch";
-import { Button, Dropdown } from "antd";
+import { Avatar, Badge, Button, Dropdown } from "antd";
 import { useSelector } from "react-redux";
 
 function Header() {
   const tokendeğeri = useSelector((state) => state.tokenBool.bool);
-
-  console.log("tokendeğeri", tokendeğeri);
+  const basketUrun = useSelector((state) => state.basket.value);
 
   const items = [
     {
@@ -101,7 +101,14 @@ function Header() {
           )}
 
           <Link to="/shopbasket" className="hover:text-primary cursor-pointer">
-            <FaShoppingCart />
+            <div>
+              <div className="ml-2 rounded-full bg-red-500 text-white text-xs px-1">
+                {basketUrun.length}
+              </div>
+              <div className="mb-4">
+                <FaShoppingCart />
+              </div>
+            </div>
           </Link>
 
           <a className="hover:text-primary cursor-pointer">
