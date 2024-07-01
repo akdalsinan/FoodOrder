@@ -6,11 +6,50 @@ import Logo from "./logo";
 import { Link } from "react-router-dom";
 import ModalSearch from "./modalSearch";
 import { Avatar, Badge, Button, Dropdown } from "antd";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { jwtDecode } from "jwt-decode";
+
+import { clearUser } from "../../../reducer/userToken";
+import { getAllUserBasket } from "../../../services/basket";
 
 function Header() {
-  const tokendeğeri = useSelector((state) => state.tokenBool.bool);
-  const basketUrun = useSelector((state) => state.basket.value);
+  const dispatch = useDispatch();
+
+  //  const basketUrun = useSelector((state) => state.basket.value);
+  const user = useSelector((state) => state.userToken.user);
+  const basketCount = useSelector((state) => state.basket);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [basketUrun, setBasketUrun] = useState([]);
+
+  // const [userRole, setUserRole] = useState(null);
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+    // setUserRole(null);
+    dispatch(clearUser());
+    setBasketUrun([]);
+  };
+
+  const userRole = user && user.role;
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  useEffect(() => {
+    if (user && user.id) {
+      getAllUserBasket(user.id)
+        .then((response) => {
+          if (response && response.data) {
+            setBasketUrun(response.data.cartItems);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching basket items:", error);
+        });
+    }
+  }, [user && basketCount]);
 
   const items = [
     {
@@ -21,39 +60,27 @@ function Header() {
         </Link>
       ),
     },
-    {
+    userRole === "admin" && {
       key: "2",
       label: (
-        <Link to="/user" className="hover:text-primary cursor-pointer">
+        <Link to="/admin" className="hover:text-primary cursor-pointer">
+          Admin Paneli
+        </Link>
+      ),
+    },
+    {
+      key: "3",
+      label: (
+        <Link
+          to="/user"
+          onClick={handleLogout}
+          className="hover:text-primary cursor-pointer"
+        >
           Çıkış Yap
         </Link>
       ),
     },
   ];
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [sessionToken, setSessionToken] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-    console.log("tıklandı", isModalOpen);
-  };
-  // const token = sessionStorage.getItem("token");
-  // if (token ) {
-  //   console.log("token false oldu");
-  // } else {
-  //   console.log("token true oldu");
-  // }
-  // useEffect(() => {
-  //   if (token === false) {
-  //     setSessionToken(false);
-  //   } else {
-  //     setSessionToken(true);
-  //   }
-  // }, [token]);
-
-  // console.log("tokenSet", sessionToken);
-
   return (
     <div className="h-[5.5rem]  bg-secondary ">
       <div className=" mx-auto bg-secondary flex justify-between h-full px-20">
@@ -88,7 +115,7 @@ function Header() {
           </ul>
         </nav>
         <div className="py-[auto] text-white flex gap-x-4 items-center">
-          {tokendeğeri === true ? (
+          {userRole !== null ? (
             <Dropdown menu={{ items }} placement="bottom">
               <button className="hover:text-primary cursor-pointer">
                 <FaUserAlt />

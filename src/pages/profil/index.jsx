@@ -2,55 +2,79 @@ import React from "react";
 import axios from "axios";
 
 import { tokenState } from "../../reducer/tokenBoolean";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import {
   Avatar,
   Card,
   Col,
   Flex,
-  Popconfirm,
   Popover,
   Row,
   Segmented,
   Tooltip,
+  Tabs,
 } from "antd";
 import {
   EditOutlined,
   ShoppingCartOutlined,
   SettingOutlined,
+  CreditCardOutlined,
 } from "@ant-design/icons";
 
-// import avatarImage from "../../../images/avatar/2.jpg";
+import OrderPage from "./orderPage";
+import CreditCartInfoPage from "./creditCartInfoPage";
+import UserInfo from "./userInfo";
 
 const Index = () => {
-  const [avatarImage, setAvatarImage] = useState("../../../images/f6.png");
+  const user = useSelector((state) => state.userToken.user);
+  const [avatarImage, setAvatarImage] = useState(
+    "../../../images/avatar/4.jpg"
+  );
+  const [activeKey, setActiveKey] = useState("1");
 
   const dispatch = useDispatch();
 
-  // const sessionToken = sessionStorage.getItem("token");
-  // const headers = { Authorization: `Bearer ${sessionToken}` };
-  // console.log("token",header)
+  const sessionToken = sessionStorage.getItem("token");
+
+  const headers = { Authorization: `Bearer ${sessionToken}` };
+
   // axios
-  //   .get("http://localhost:3000/users/profile", { headers })
+  //   .get("http://localhost:5000/tokenControl", { headers })
   //   .then((res) => {
-  //     dispatch(tokenState({ token: true }));
-  //     console.log("res.dataaa", res.data);
+  //     dispatch(tokenState(res.data));
   //   })
   //   .catch((err) => {
-  //     ERROR(ERR)
-  //     ERR.
-  //     if (err.request.status === 401) {
-  //       dispatch(tokenState({ token: false }));
-  //     }
-  //     console.log("errr", err.request.status);
+  //     console.log("errr", err);
   //   });
 
-  const id = 2;
+  const onChange = (key) => {
+    setActiveKey(key);
+  };
+
+  const items = [
+    {
+      key: "1",
+      label: "Siparişlerim",
+      children: <OrderPage />,
+    },
+    {
+      key: "2",
+      label: "Bilgilerim",
+      children: <UserInfo />,
+    },
+    {
+      key: "3",
+      label: "Kayıtlı Kredi Kart Bilgileri",
+      children: <CreditCartInfoPage />,
+    },
+  ];
+
   return (
     <>
       <Row>
-        <Col span={12}>
+        <Col span={1}></Col>
+        <Col span={7}>
           <Card
             // bordered="true"
             style={{
@@ -64,11 +88,7 @@ const Index = () => {
               />
             }
             actions={[
-              <Tooltip placement="top" title="Profil Edit">
-                <SettingOutlined key="setting" />
-              </Tooltip>,
-
-              <Tooltip placement="top" title="Avatar Edit">
+              <Tooltip placement="top" title="Avatar Düzenle">
                 <Popover
                   placement="bottom"
                   trigger="click"
@@ -95,21 +115,44 @@ const Index = () => {
                 </Popover>
               </Tooltip>,
 
-              <Tooltip placement="top" title="My Orders">
-                <ShoppingCartOutlined key="ellipsis" />
+              <Tooltip placement="top" title="Siparişlerim">
+                <ShoppingCartOutlined
+                  key="ellipsis"
+                  onClick={() => {
+                    setActiveKey("1");
+                  }}
+                />
+              </Tooltip>,
+
+              <Tooltip placement="top" title="Profil Bilgileri">
+                <SettingOutlined
+                  key="setting"
+                  onClick={() => {
+                    setActiveKey("2");
+                  }}
+                />
+              </Tooltip>,
+
+              <Tooltip placement="top" title="Kayıtlı Kart Bilgileri">
+                <CreditCardOutlined
+                  key="ellipsis"
+                  onClick={() => {
+                    setActiveKey("3");
+                  }}
+                />
               </Tooltip>,
             ]}
           >
             <div className="flex flex-col">
-              <p>Ad Soyad</p>
-              <p>Mail</p>
+              <p>{user && user.username}</p>
+              <p>{user && user.email}</p>
             </div>
           </Card>
         </Col>
-        <Col span={12}>
-          <Col span={6}>safdsafd</Col>
-          <Col span={6}>adad</Col>
+        <Col span={15}>
+          <Tabs activeKey={activeKey} items={items} onChange={onChange} />
         </Col>
+        <Col span={1}></Col>
       </Row>
     </>
   );

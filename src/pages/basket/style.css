@@ -1,0 +1,23 @@
+.scrollable-list {
+  margin-top: 100px;
+  max-height: 450px;
+  /* İstediğiniz yüksekliği belirleyin */
+  overflow-y: auto;
+  /* padding: 16px; */
+  /* İçerik etrafında biraz boşluk bırakmak için */
+  /* border: 1px solid #ddd; */
+  /* İsteğe bağlı, kaydırılabilir alanı belirginleştirmek için */
+}
+
+.totalPrice {
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 300px;
+
+}
+
+.totalPrice-h3 {
+  font-weight: 500;
+  font-size: large;
+}

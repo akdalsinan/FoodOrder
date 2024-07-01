@@ -1,47 +1,32 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-
 import { Button, Form, Input } from "antd";
-
-
-import { loginUser } from "../../actions/userAction";
-
 import closeeye from "../../../images/closeeye.png";
 import openeye from "../../../images/openeye.png";
-import MyNotification from "../../components/myNotification";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { userLogin } from "../../services/users";
+import { setUser } from "../../reducer/userToken";
+import { jwtDecode } from "jwt-decode";
 
 const LoginPage = () => {
-
   const [photo, setPhoto] = useState(openeye);
-  const dispatch = useDispatch();
-  const navigate=useNavigate()
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onFinish = (value) => {
-    dispatch(
-      loginUser({
-        email: value.email,
-        password: value.password,
-      })
-    ).then((e) => {
-      if (e.payload.message === "Giris basarili") {
-        MyNotification("success", e.payload.message);
-        sessionStorage.setItem('token',  e.payload.accessToken)
-        navigate("/profile")   
-       
-      } 
-      else if((e.payload === "Hatalı şifre")) {
-        MyNotification("info", e.payload);
-      } else if ((e.payload === "Kullanıcı bulunamadı")) {
-        MyNotification("warning", e.payload);
+    const createData = { email: value.email, password: value.password };
+    userLogin(createData).then((response) => {
+      if (response.data.isSuccess) {
+        const token = response.data.token;
+        sessionStorage.setItem("token", token);
+        const decodedToken = jwtDecode(token);
+
+        dispatch(setUser(decodedToken)); // Redux'a kaydet
+        navigate("/profile");
       }
-      else (MyNotification("warning", e.payload))
     });
   };
-
-
 
   return (
     <div className="flex">

@@ -10,8 +10,11 @@ import openeye from "../../../images/openeye.png";
 import bgImage from "../../../images/bgimage.jpg";
 import puzzleImage from "../../../images/puzzleurl.png";
 
-
 import MyNotification from "../../components/myNotification";
+import { userRegister } from "../../services/users";
+import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
+import { setUser } from "../../reducer/userToken";
 
 const SignupPage = () => {
   const [checked, setchecked] = useState(false);
@@ -19,23 +22,31 @@ const SignupPage = () => {
   const [photo, setPhoto] = useState(openeye);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onchange = (e) => {
     setchecked(e.target.checked);
   };
 
   const onFinish = (value) => {
-    dispatch(
-      addUser({
-        namesurname: value.nameSurname,
-        email: value.SignEmail,
-        password: value.SignPassword,
+    const createData = {
+      username: value.nameSurname,
+      email: value.SignEmail,
+      password: value.SignPassword,
+    };
+
+    userRegister(createData)
+      .then((response) => {
+        if (response.data.isSuccess) {
+          const token = response.data.token;
+          sessionStorage.setItem("token", token);
+          const decodedToken = jwtDecode(token);
+
+          dispatch(setUser(decodedToken)); // Redux'a kaydet
+          navigate("/profile");
+        }
       })
-    ).then((e) => {
-      if (e.payload === "kayıt işlemi başarılı") {
-        MyNotification("success", e.payload);
-      }
-    });
+      .catch((error) => console.log("error", error));
   };
 
   return (

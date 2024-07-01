@@ -1,10 +1,12 @@
 import { notification } from "antd";
+
 // import React from "react";
 
-const MyNotification = (type, description) => {
-
-    notification[type]({ message: description });
-
+const MyNotification = (type, message, description) => {
+  notification[type]({
+    message: message,
+    description: description,
+  });
 };
 
 export default MyNotification;

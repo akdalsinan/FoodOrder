@@ -4,28 +4,21 @@ import axios from "axios";
 // ------------- GET METHODS ------------------- //
 
 export const getAllHamburger = createAsyncThunk(
-  "food/getAllHamburger",
+  "/getAllHamburger",
   async () => {
-    const response = await axios.get(
-      "http://localhost:3000/food/getAllHamburger"
-    );
+    const response = await axios.get("http://localhost:5000/getAllHamburger");
     return response.data;
   }
 );
 
-export const getAllPizza = createAsyncThunk("food/getAllPizza", async () => {
-  const response = await axios.get("http://localhost:3000/food/getAllPizza");
+export const getAllPizza = createAsyncThunk("/getAllPizza", async () => {
+  const response = await axios.get("http://localhost:5000/getAllPizza");
   return response.data;
 });
 
-export const getAllMakarna = createAsyncThunk(
-  "food/getAllMakarna",
-  async () => {
-    const response = await axios.get(
-      "http://localhost:3000/food/getAllMakarna"
-    );
-    return response.data;
-  }
-);
+export const getAllMakarna = createAsyncThunk("/getAllMakarna", async () => {
+  const response = await axios.get("http://localhost:5000/getAllMakarna");
+  return response.data;
+});
 
 // ------------- POST METHODS ------------------- //

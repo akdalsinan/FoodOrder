@@ -1,27 +1,39 @@
-import React, { useEffect } from "react";
-import { Col, Row, Space, Tabs } from "antd";
+import React, { useEffect, useState } from "react";
+import { Col, Row, Tabs } from "antd";
 
 import CardItem from "./components/card";
 import ViewMoreButton from "./components/viewMoreButton";
 
-import data from "../../mockData";
-
-import { useDispatch, useSelector } from "react-redux";
 import {
-  getAllHamburger,
-  getAllPizza,
-  getAllMakarna,
-} from "../../actions/foodActions";
+  getAllHamburgers,
+  getAllMakarnas,
+  getAllPizzas,
+} from "../../services/food";
 
 function HomeMenu() {
-  // const dispatch = useDispatch();
-  // const data = useSelector((state) => state.foods);
+  const [pizzas, setPizzas] = useState([]);
+  const [hamburgers, setHamburgers] = useState([]);
+  const [makarnas, setMakarnas] = useState([]);
 
-  // useEffect(() => {
-  //   dispatch(getAllHamburger());
-  //   dispatch(getAllPizza());
-  //   dispatch(getAllMakarna());
-  // }, []);
+  useEffect(() => {
+    getAllPizzas().then((res) => {
+      if (res !== undefined) {
+        setPizzas(res.data.resultSet);
+      }
+    });
+
+    getAllHamburgers().then((res) => {
+      if (res !== undefined) {
+        setHamburgers(res.data.resultSet);
+      }
+    });
+
+    getAllMakarnas().then((res) => {
+      if (res !== undefined) {
+        setMakarnas(res.data.resultSet);
+      }
+    });
+  }, []);
 
   const maxViewCard = 6;
 
@@ -36,13 +48,14 @@ function HomeMenu() {
       children: (
         <div style={{ marginLeft: 200, marginRight: 200 }}>
           <Row gutter={[16, 24]}>
-            {data.pizza.slice(0, maxViewCard).map((items) => (
+            {pizzas.slice(0, maxViewCard).map((items) => (
               <Col span={8} key={items.id}>
                 <CardItem
                   items={items}
-                  typesName={items.typesname}
-                  foodName={"Pizza"}
-                  price={items.price}
+                  urunName={items.urunName}
+                  foodName={items.foodName}
+                  foodPrice={items.foodPrice}
+                  foodDesc={items.foodDesc}
                 />
               </Col>
             ))}
@@ -64,13 +77,14 @@ function HomeMenu() {
       children: (
         <div style={{ marginLeft: 200, marginRight: 200 }}>
           <Row gutter={[16, 24]}>
-            {data.hamburger.slice(0, maxViewCard).map((items) => (
+            {hamburgers.slice(0, maxViewCard).map((items) => (
               <Col span={8} key={items.id}>
                 <CardItem
                   items={items}
-                  typesName={items.typesname}
-                  foodName={"Hamburger"}
-                  price={items.price}
+                  urunName={items.urunName}
+                  foodName={items.foodName}
+                  foodPrice={items.foodPrice}
+                  foodDesc={items.foodDesc}
                 />
               </Col>
             ))}
@@ -92,13 +106,14 @@ function HomeMenu() {
       children: (
         <div style={{ marginLeft: 200, marginRight: 200 }}>
           <Row gutter={[16, 24]}>
-            {data.makarna.slice(0, maxViewCard).map((items) => (
+            {makarnas.slice(0, maxViewCard).map((items) => (
               <Col span={8} key={items.id}>
                 <CardItem
                   items={items}
-                  typesName={items.typesname}
-                  foodName={"Makarna"}
-                  price={items.price}
+                  urunName={items.urunName}
+                  foodName={items.foodName}
+                  foodPrice={items.foodPrice}
+                  foodDesc={items.foodDesc}
                 />
               </Col>
             ))}
