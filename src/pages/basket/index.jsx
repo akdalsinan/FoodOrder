@@ -26,6 +26,8 @@ import DrawerForm from "./drawerForm";
 
 import pizzaMoney from "../../../images/pizzaMoney.jpg";
 import CreditCard from "./creditCard";
+import Loading from "../../components/loading";
+
 import { useNavigate } from "react-router-dom";
 import { addOrder } from "../../services/order";
 
@@ -45,6 +47,7 @@ function Index() {
   useEffect(() => {
     if (user && user.id) {
       setLoading(true); // API çağrısı öncesi yüklenme durumunu true yapıyoruz
+
       getAllUserBasket(user.id)
         .then((response) => {
           if (response && response.data) {
@@ -179,7 +182,7 @@ function Index() {
       <Col span={2}></Col>
       <Col span={16}>
         {loading ? (
-          <Spin />
+          <Loading />
         ) : basketUrun.length === 0 ? (
           <Typography.Title level={3} type="danger">
             SEPETİNİZ BOŞ
@@ -239,7 +242,7 @@ function Index() {
         )}
       </Col>
       <Col span={2}></Col>
-      {basketUrun.length != 0 && (
+      {!loading && basketUrun.length != 0 && (
         <Col span={4}>
           <div className="totalPrice">
             <h3 className="totalPrice-h3">

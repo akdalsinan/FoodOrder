@@ -17,25 +17,29 @@ function CardItem({ urunName, foodName, foodPrice, items, foodDesc }) {
   const user = useSelector((state) => state.userToken.user);
 
   const handleAddBasket = () => {
-    const createData = { userId: user.id, foodId: items._id, quantity: 1 };
+    if (user === null) {
+      MyNotification("warning", "Sepete Ürün Eklemek İçin Giriş Yapın");
+    } else {
+      const createData = { userId: user.id, foodId: items._id, quantity: 1 };
 
-    addBasket(createData).then((response) => {
-      if (response.data.message === "Product added to cart") {
-        const basketLength = response.data.cart.items.length;
+      addBasket(createData).then((response) => {
+        if (response.data.message === "Product added to cart") {
+          const basketLength = response.data.cart.items.length;
 
-        dispatch(basketCount(basketLength));
-        const description = (
-          <Button
-            className="bg-primary text-secondary hover:text-secondary cursor-pointer "
-            htmlType="submit"
-            onClick={() => navigate("/shopbasket")}
-          >
-            Sepete Git
-          </Button>
-        );
-        MyNotification("success", "Ürün Sepete Eklendi", description);
-      }
-    });
+          dispatch(basketCount(basketLength));
+          const description = (
+            <Button
+              className="bg-primary text-secondary hover:text-secondary cursor-pointer "
+              htmlType="submit"
+              onClick={() => navigate("/shopbasket")}
+            >
+              Sepete Git
+            </Button>
+          );
+          MyNotification("success", "Ürün Sepete Eklendi", description);
+        }
+      });
+    }
   };
 
   return (

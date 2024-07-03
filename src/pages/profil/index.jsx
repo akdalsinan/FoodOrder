@@ -25,6 +25,7 @@ import {
 import OrderPage from "./orderPage";
 import CreditCartInfoPage from "./creditCartInfoPage";
 import UserInfo from "./userInfo";
+import DraggableButton from "../../components/draggableButton";
 
 const Index = () => {
   const user = useSelector((state) => state.userToken.user);
@@ -73,6 +74,8 @@ const Index = () => {
   return (
     <>
       <Row>
+        {user && user.role === "user" && <DraggableButton user={user} />}
+
         <Col span={1}></Col>
         <Col span={7}>
           <Card

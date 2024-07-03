@@ -9,23 +9,30 @@ import pizza from "../../../images/helppizza.png";
 import TextArea from "antd/es/input/TextArea";
 import { useSelector } from "react-redux";
 import { addFeedback } from "../../services/feedBack";
+import MyNotification from "../../components/myNotification";
+
+import UserChat from "./chat/userChat";
 
 function Home() {
   const user = useSelector((state) => state.userToken.user);
 
   const sendFeedBack = (value) => {
-    const createData = {
-      ...value,
-      user: user.id,
-      userName: user.username,
-      userEmail: user.email,
-    };
-    addFeedback(createData)
-      .then((response) => {
-        if (response.data.isSuccess) {
-        }
-      })
-      .catch((error) => console.log("error", error));
+    if (user === null) {
+      MyNotification("warning", "Görüş ve Öneri İçin Giriş Yapın");
+    } else {
+      const createData = {
+        ...value,
+        user: user.id,
+        userName: user.username,
+        userEmail: user.email,
+      };
+      addFeedback(createData)
+        .then((response) => {
+          if (response.data.isSuccess) {
+          }
+        })
+        .catch((error) => console.log("error", error));
+    }
   };
   return (
     <>
@@ -61,20 +68,6 @@ function Home() {
                       </Radio.Button>
                     </Radio.Group>
                   </Form.Item>
-                  {/* <Form.Item>
-                      <Button
-                        shape="circle"
-                        size="large"
-                        icon={<SmileOutlined />}
-                      />
-                    </Form.Item> */}
-                  {/* <Form.Item>
-                      <Button
-                        shape="circle"
-                        size="large"
-                        icon={<FrownOutlined />}
-                      />
-                    </Form.Item> */}
 
                   <Form.Item>
                     <Button
@@ -102,8 +95,11 @@ function Home() {
         </Popover>
       </div>
       <HomeBack />
+
       <HomeMenu />
+      {/* <AdminChat /> */}
       <HomeAbout />
+      <UserChat user={user} />
     </>
   );
 }

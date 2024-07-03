@@ -3,6 +3,7 @@ import React from "react";
 import FoodEdit from "./foodEdit/foodEdit";
 import OrderView from "./orderView/orderView";
 import FeedBack from "./feedBack";
+import AdminChat from "../home/chat/adminChat";
 
 const Index = () => {
   const items = [
@@ -20,6 +21,11 @@ const Index = () => {
       key: "3",
       label: "Görüş ve Öneriler",
       children: <FeedBack />,
+    },
+    {
+      key: "4",
+      label: "chat",
+      children: <AdminChat />,
     },
   ];
 
