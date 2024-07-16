@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 
 import { tokenState } from "../../reducer/tokenBoolean";
@@ -33,8 +33,6 @@ const Index = () => {
     "../../../images/avatar/4.jpg"
   );
   const [activeKey, setActiveKey] = useState("1");
-
-  const dispatch = useDispatch();
 
   const sessionToken = sessionStorage.getItem("token");
 

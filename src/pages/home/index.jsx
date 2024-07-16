@@ -99,7 +99,7 @@ function Home() {
       <HomeMenu />
       {/* <AdminChat /> */}
       <HomeAbout />
-      <UserChat user={user} />
+      {/* <UserChat user={user} /> */}
     </>
   );
 }

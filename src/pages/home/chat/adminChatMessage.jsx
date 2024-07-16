@@ -1,43 +1,27 @@
-import React, { useEffect, useState } from "react";
-import io from "socket.io-client";
-import { SendOutlined } from "@ant-design/icons";
+import React, { useState } from "react";
 import { Button, Input, Space } from "antd";
+import { SendOutlined } from "@ant-design/icons";
+
+import io from "socket.io-client";
 
 const socket = io("https://food-order-backend2-5tu9.onrender.com");
 
-const UserChat = ({ user }) => {
-  const [messages, setMessages] = useState([]);
+function AdminChatMessage({ currentRoom, messages }) {
+  // console.log("messages", messages);
+  // console.log("currentRoom", currentRoom);
   const [inputValue, setInputValue] = useState("");
 
-  const room = user && `user-${user.id}`;
-
-  useEffect(() => {
-    socket.emit("joinRoom", room);
-
-    socket.on("receiveMessage", (data) => {
-      setMessages((prevMessages) => [...prevMessages, data]);
-    });
-
-    socket.on("loadMessages", (loadedMessages) => {
-      setMessages(loadedMessages);
-    });
-
-    return () => {
-      socket.off("receiveMessage");
-      socket.off("loadMessages");
-    };
-  }, [room]);
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
 
   const handleSubmit = () => {
     socket.emit("sendMessage", {
-      room,
+      room: currentRoom,
       message: inputValue,
-      sender: user.username,
+      sender: "Admin",
     });
     setInputValue("");
-  };
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
   };
 
   return (
@@ -63,7 +47,7 @@ const UserChat = ({ user }) => {
             <Button
               onClick={handleSubmit}
               type="primary"
-              className="bg-primary text-secondary hover:text-secondary cursor-pointer "
+              className="bg-primary text-secondary hover:text-secondary cursor-pointer"
             >
               <SendOutlined style={{ fontSize: "20px", color: "black" }} />
             </Button>
@@ -72,6 +56,6 @@ const UserChat = ({ user }) => {
       </div>
     </div>
   );
-};
+}
 
-export default UserChat;
+export default AdminChatMessage;

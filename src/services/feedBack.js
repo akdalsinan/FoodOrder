@@ -1,7 +1,7 @@
 import axios from "axios";
 import { errorHandler, getToken, servicesControl } from "../components/helper";
 
-const apiUrl = "http://localhost:5000/";
+const apiUrl = import.meta.env.VITE_API_URI;
 // const apiUrl = "https://food-order-backend2-5tu9.onrender.com/";
 
 export const addFeedback = (createData) =>

@@ -1,21 +1,19 @@
 import React, { useRef, useState } from "react";
-import { Button, Popover } from "antd";
+import { Popover } from "antd";
 import Draggable from "react-draggable";
 import UserChat from "../../pages/home/chat/userChat";
-import { MailOutlined } from "@ant-design/icons";
+import SendMessageButton from "../sendMessageButton";
 
 const DraggableButton = ({ user }) => {
   const nodeRef = useRef(null);
-  const [position, setPosition] = useState({ x: 10, y: 10 });
+  const [position, setPosition] = useState({ x: 100, y: 600 });
 
   const handleDrag = (e, data) => {
     setPosition({ x: data.x, y: data.y });
   };
 
   const [open, setOpen] = useState(false);
-  const hide = () => {
-    setOpen(false);
-  };
+
   const handleOpenChange = (newOpen) => {
     setOpen(newOpen);
   };
@@ -40,9 +38,9 @@ const DraggableButton = ({ user }) => {
           open={open}
           onOpenChange={handleOpenChange}
         >
-          <Button className="bg-primary text-secondary hover:text-secondary cursor-pointer ">
-            <MailOutlined style={{ fontSize: "25px", color: "black" }} />
-          </Button>
+          <div>
+            <SendMessageButton />
+          </div>
         </Popover>
       </div>
     </Draggable>

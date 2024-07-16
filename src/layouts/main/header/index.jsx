@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-import { FaShoppingCart, FaUserAlt, FaSearch } from "react-icons/fa";
-import { ShoppingCartOutlined } from "@ant-design/icons";
+import { FaShoppingCart, FaUserAlt, FaSearch, FaAmilia } from "react-icons/fa";
+import { IoIosMail } from "react-icons/io";
+
 import Logo from "./logo";
 import { Link } from "react-router-dom";
 import ModalSearch from "./modalSearch";
 import { Avatar, Badge, Button, Dropdown } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { jwtDecode } from "jwt-decode";
 
 import { clearUser } from "../../../reducer/userToken";
 import { getAllUserBasket } from "../../../services/basket";
@@ -18,7 +18,9 @@ function Header() {
   //  const basketUrun = useSelector((state) => state.basket.value);
   const user = useSelector((state) => state.userToken.user);
   const basketCount = useSelector((state) => state.basket);
+  const messageCount = useSelector((state) => state.adminMessage);
 
+  console.log("messageCount", messageCount);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [basketUrun, setBasketUrun] = useState([]);
 

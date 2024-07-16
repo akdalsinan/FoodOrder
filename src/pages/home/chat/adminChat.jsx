@@ -3,18 +3,22 @@ import io from "socket.io-client";
 import Search from "antd/es/input/Search";
 
 import { SendOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Space } from "antd";
+import { Button, Form, Input, List, Popover, Space } from "antd";
+import { useDispatch } from "react-redux";
+import { setMessage } from "../../../reducer/adminMessage";
+import AdminChatMessage from "./adminChatMessage";
 
-const socket = io("http://localhost:5000");
+const socket = io("https://food-order-backend2-5tu9.onrender.com");
 
 const AdminChat = () => {
-  const [form] = Form.useForm();
-  const formRef = useRef(null);
-
   const [rooms, setRooms] = useState([]);
   const [currentRoom, setCurrentRoom] = useState(null);
   const [messages, setMessages] = useState([]);
+  const [aktifmessages, setaktifMessages] = useState([]);
   const [unreadRooms, setUnreadRooms] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // Odaları güncellemek için
@@ -44,7 +48,9 @@ const AdminChat = () => {
   }, [currentRoom, unreadRooms]);
 
   const handleRoomSelect = (room) => {
+    console.log("room", room);
     setCurrentRoom(room);
+
     setMessages([]);
     socket.emit("joinRoom", room);
 
@@ -57,9 +63,7 @@ const AdminChat = () => {
     );
   };
 
-  console.log("rooms", rooms);
-
-  const [inputValue, setInputValue] = useState("");
+  // console.log("rooms", rooms);
 
   const handleSubmit = () => {
     socket.emit("sendMessage", {
@@ -74,60 +78,63 @@ const AdminChat = () => {
     setInputValue(e.target.value);
   };
 
-  console.log("messages", messages);
+  // Aktif ve diğer odaları ayır
+  const activeRooms = rooms.filter((room) => unreadRooms.includes(room));
+  const otherRooms = rooms.filter((room) => !unreadRooms.includes(room));
+
+  // Aktif odaları en üstte, diğer odaları altta göster
+  const sortedRooms = [...activeRooms, ...otherRooms];
+
+  const [open, setOpen] = useState(false);
+
+  const [openRooms, setOpenRooms] = useState({});
+
+  const handlePopoverOpenChange = (room, newOpen) => {
+    console.log("rooooooooooooooooooooom", room);
+    setOpenRooms((prevOpenRooms) => ({
+      ...prevOpenRooms,
+      [room]: newOpen,
+    }));
+    setCurrentRoom(room);
+
+    setMessages([]);
+    socket.emit("joinRoom", room);
+
+    // Mevcut mesajları almak için
+    socket.on("loadMessages", (loadedMessages) => {
+      setMessages(loadedMessages);
+    });
+    setUnreadRooms((prevUnreadRooms) =>
+      prevUnreadRooms.filter((r) => r !== room)
+    );
+  };
 
   return (
     <div>
       <ul>
-        {rooms.map((room, index) => (
+        {sortedRooms.map((room, index) => (
           <li key={index} onClick={() => handleRoomSelect(room)}>
-            {room} {unreadRooms.includes(room) && <span>🔔</span>}
+            <Popover
+              content={
+                currentRoom &&
+                messages && (
+                  <AdminChatMessage
+                    currentRoom={currentRoom}
+                    messages={messages}
+                  />
+                )
+              }
+              trigger="click"
+              open={openRooms[room] || false}
+              onOpenChange={(newOpen) => handlePopoverOpenChange(room, newOpen)}
+            >
+              <span>
+                {room} {unreadRooms.includes(room) && "🔔"}
+              </span>
+            </Popover>
           </li>
         ))}
       </ul>
-      {currentRoom && (
-        <div className="flex flex-col justify-between h-96 w-72 border border-gray-300 rounded-lg overflow-hidden">
-          <div className="flex-1 p-2 overflow-y-auto bg-gray-100">
-            {messages.map((msg, index) => (
-              <div key={index} className="mb-2">
-                <strong className="text-gray-800">{msg.sender}:</strong>{" "}
-                {msg.message}
-              </div>
-            ))}
-          </div>
-          <div>
-            <Space direction="vertical" size="large">
-              <Space style={{ width: "100%" }}>
-                <Input
-                  placeholder="Mesajınızı Girin..."
-                  style={{ width: "220px" }}
-                  value={inputValue}
-                  onChange={handleInputChange}
-                  onPressEnter={handleSubmit}
-                />
-                <Button
-                  onClick={handleSubmit}
-                  type="primary"
-                  className="bg-primary text-secondary hover:text-secondary cursor-pointer "
-                >
-                  <SendOutlined style={{ fontSize: "20px", color: "black" }} />
-                </Button>
-              </Space>
-            </Space>
-
-            {/* <Search
-              ref={searchRef}
-              placeholder="Type a message"
-              onSearch={onSend}
-              enterButton={
-                <>
-                  <SendOutlined style={{ fontSize: "20px", color: "black" }} />
-                </>
-              }
-            /> */}
-          </div>
-        </div>
-      )}
     </div>
   );
 };
