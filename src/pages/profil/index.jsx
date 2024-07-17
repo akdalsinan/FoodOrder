@@ -27,11 +27,11 @@ import CreditCartInfoPage from "./creditCartInfoPage";
 import UserInfo from "./userInfo";
 import DraggableButton from "../../components/draggableButton";
 
-import defaultAvatar from "../../../images/avatar/4.jpg";
+import defaultAvatar from "/avatar/4.jpg";
 
 const Index = () => {
   const user = useSelector((state) => state.userToken.user);
-  const [avatarImage, setAvatarImage] = useState(`url(${defaultAvatar})`);
+  const [avatarImage, setAvatarImage] = useState(defaultAvatar);
   const [activeKey, setActiveKey] = useState("1");
 
   const sessionToken = sessionStorage.getItem("token");
@@ -102,15 +102,11 @@ const Index = () => {
                             <div key={index + 1}>
                               <Avatar
                                 style={{ height: "60px", width: "60px" }}
-                                src={`url(${`../../../images/avatar/${
-                                  index + 1
-                                }.jpg`})`}
+                                src={`url(${`/avatar/${index + 1}.jpg`})`}
                               />
                             </div>
                           ),
-                          value: `url(${`../../../images/avatar/${
-                            index + 1
-                          }.jpg`})`,
+                          value: `url(${`/avatar/${index + 1}.jpg`})`,
                         }))}
                       />
                     </Flex>
