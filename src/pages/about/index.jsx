@@ -1,6 +1,6 @@
 import React from "react";
 import resim4 from "../../../images/about.png";
-import { Col, Row } from "antd";
+import { Button, Col, Row } from "antd";
 
 import {
   FaXTwitter,
@@ -9,6 +9,7 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa6";
 import SocialButton from "./components/socialButton";
+import { Link } from "react-router-dom";
 
 function About() {
   return (
@@ -31,7 +32,9 @@ function About() {
             <SocialButton icon={<FaFacebookF />} bg={"blue"} />
             <SocialButton icon={<FaXTwitter />} bg={"black"} />
             <SocialButton icon={<FaWhatsapp />} bg={"green"} />
-            <SocialButton icon={<FaLinkedinIn />} bg={"blue"} />
+            <Link to="https://www.linkedin.com/in/sinan-akdal/" target="_blank">
+              <SocialButton icon={<FaLinkedinIn />} bg={"blue"} />
+            </Link>
           </div>
         </Col>
         <Col offset={1} span={10}>
@@ -41,5 +44,4 @@ function About() {
     </div>
   );
 }
-
 export default About;

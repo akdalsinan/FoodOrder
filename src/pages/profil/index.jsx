@@ -102,11 +102,11 @@ const Index = () => {
                             <div key={index + 1}>
                               <Avatar
                                 style={{ height: "60px", width: "60px" }}
-                                src={`url(${`/avatar/${index + 1}.jpg`})`}
+                                src={`/avatar/${index + 1}.jpg`}
                               />
                             </div>
                           ),
-                          value: `url(${`/avatar/${index + 1}.jpg`})`,
+                          value: `/avatar/${index + 1}.jpg`,
                         }))}
                       />
                     </Flex>

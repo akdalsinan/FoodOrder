@@ -95,11 +95,9 @@ function Home() {
         </Popover>
       </div>
       <HomeBack />
-
       <HomeMenu />
-      {/* <AdminChat /> */}
       <HomeAbout />
-      {/* <UserChat user={user} /> */}
+      <div style={{ height: "50px" }} />
     </>
   );
 }
