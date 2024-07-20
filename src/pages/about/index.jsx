@@ -4,7 +4,7 @@ import { Button, Col, Row } from "antd";
 
 import {
   FaXTwitter,
-  FaFacebookF,
+  FaGithub,
   FaWhatsapp,
   FaLinkedinIn,
 } from "react-icons/fa6";
@@ -29,9 +29,13 @@ function About() {
             years, sometimes by accident, sometimes on purpose.
           </p>
           <div className="flex flex-wrap gap-5 mt-8">
-            <SocialButton icon={<FaFacebookF />} bg={"blue"} />
-            <SocialButton icon={<FaXTwitter />} bg={"black"} />
-            <SocialButton icon={<FaWhatsapp />} bg={"green"} />
+            {/* <SocialButton icon={<FaXTwitter />} bg={"black"} />
+            <SocialButton icon={<FaWhatsapp />} bg={"green"} /> */}
+
+            <Link to="https://github.com/akdalsinan" target="_blank">
+              <SocialButton icon={<FaGithub />} bg={"black"} />
+            </Link>
+
             <Link to="https://www.linkedin.com/in/sinan-akdal/" target="_blank">
               <SocialButton icon={<FaLinkedinIn />} bg={"blue"} />
             </Link>

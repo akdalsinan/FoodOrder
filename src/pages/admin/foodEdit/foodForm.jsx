@@ -1,13 +1,26 @@
-import { Button, Checkbox, Col, Flex, Form, Input, Row, Select } from "antd";
-import React from "react";
+import {
+  Button,
+  Checkbox,
+  Col,
+  Flex,
+  Form,
+  Input,
+  Row,
+  Select,
+  Upload,
+} from "antd";
+import {
+  UploadOutlined,
+  LoadingOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
+import React, { useState } from "react";
 import { useEffect } from "react";
 
 import { addFood, updateFood } from "../../../services/food";
 
 function FoodForm({ selectedRow, form, handleOk, getAllFoods }) {
   const onFinish = (value) => {
-    console.log("value", value);
-
     if (value.urunName === "pizza") {
       var createDataUrunName = 1;
     } else if (value.urunName === "hamburger") {
@@ -21,17 +34,33 @@ function FoodForm({ selectedRow, form, handleOk, getAllFoods }) {
       ...value,
       urunId: createDataUrunName,
     };
+
+    const urunId = createDataUrunName;
+    const foodId = selectedRow && selectedRow._id;
+
+    const formData = new FormData();
+
+    formData.append("urunId", urunId);
+    formData.append("foodId", foodId);
+    formData.append("urunName", value.urunName);
+    formData.append("foodName", value.foodName);
+    formData.append("foodPrice", value.foodPrice);
+    formData.append("foodDesc", value.foodDesc);
+    formData.append("foodImage", fileList[0].originFileObj);
+
     handleOk();
 
+    console.log("formData", formData);
+
     selectedRow
-      ? updateFood(createData)
+      ? updateFood(formData)
           .then((response) => {
             if (response.data.isSuccess) {
               getAllFoods();
             }
           })
           .catch((error) => console.log("error", error))
-      : addFood(createData)
+      : addFood(formData)
           .then((response) => {
             if (response.data.isSuccess) {
               getAllFoods();
@@ -52,6 +81,31 @@ function FoodForm({ selectedRow, form, handleOk, getAllFoods }) {
       form.resetFields();
     }
   }, [selectedRow, form]);
+
+  const [fileList, setFileList] = useState([]);
+
+  const handleFileChange = ({ fileList }) => setFileList(fileList);
+
+  console.log("fileList", fileList);
+
+  const uploadButton = (
+    <button
+      style={{
+        border: 0,
+        background: "none",
+      }}
+      type="button"
+    >
+      <PlusOutlined />
+      <div
+        style={{
+          marginTop: 8,
+        }}
+      >
+        Upload
+      </div>
+    </button>
+  );
 
   return (
     <>
@@ -124,6 +178,26 @@ function FoodForm({ selectedRow, form, handleOk, getAllFoods }) {
               ]}
             >
               <Input.TextArea />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row gutter={16}>
+          <Col span={24}>
+            <Form.Item
+              label="Yemek Resmi"
+              rules={[
+                { required: true, message: "Please upload a food image!" },
+              ]}
+            >
+              <Upload
+                listType="picture"
+                beforeUpload={() => false}
+                fileList={fileList}
+                onChange={handleFileChange}
+              >
+                {uploadButton}
+              </Upload>
             </Form.Item>
           </Col>
         </Row>

@@ -5,6 +5,8 @@ import { formatPrice } from "../../../components/helper";
 import FoodForm from "../foodEdit/foodForm";
 
 function FoodEdit() {
+  const apiUrl = import.meta.env.VITE_API_URI;
+
   const [form] = Form.useForm();
   const [food, setFood] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,6 +51,8 @@ function FoodEdit() {
     form.resetFields();
   };
 
+  // console.log("food", food[12].foodImage);
+
   const columns = [
     {
       title: "Yemek İsmi",
@@ -70,6 +74,17 @@ function FoodEdit() {
       title: "Yemek Açıklama",
       dataIndex: "foodDesc",
       key: "foodDesc",
+    },
+    {
+      title: "Yemek Açıklama",
+      dataIndex: "foodImage",
+      key: "foodImage",
+      render: (row) => (
+        <img
+          style={{ height: "60px", width: "60px" }}
+          src={`${apiUrl}uploads/${row}`}
+        />
+      ),
     },
 
     {
@@ -94,6 +109,9 @@ function FoodEdit() {
 
   return (
     <>
+      {/* {food && (
+        <img src={`http://localhost:5000/uploads/${food[12].foodImage}`} />
+      )} */}
       <Table
         columns={columns}
         dataSource={food}

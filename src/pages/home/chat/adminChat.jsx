@@ -1,11 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
-import Search from "antd/es/input/Search";
 
-import { SendOutlined } from "@ant-design/icons";
-import { Button, Form, Input, List, Popover, Space } from "antd";
-import { useDispatch } from "react-redux";
-import { setMessage } from "../../../reducer/adminMessage";
+import { Popover } from "antd";
+
 import AdminChatMessage from "./adminChatMessage";
 
 const socket = io("https://food-order-backend2-5tu9.onrender.com");
@@ -14,11 +11,9 @@ const AdminChat = () => {
   const [rooms, setRooms] = useState([]);
   const [currentRoom, setCurrentRoom] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [aktifmessages, setaktifMessages] = useState([]);
   const [unreadRooms, setUnreadRooms] = useState([]);
   const [inputValue, setInputValue] = useState("");
-
-  const dispatch = useDispatch();
+  const [openRooms, setOpenRooms] = useState({});
 
   useEffect(() => {
     // Odaları güncellemek için
@@ -58,6 +53,7 @@ const AdminChat = () => {
     socket.on("loadMessages", (loadedMessages) => {
       setMessages(loadedMessages);
     });
+
     setUnreadRooms((prevUnreadRooms) =>
       prevUnreadRooms.filter((r) => r !== room)
     );
@@ -85,12 +81,7 @@ const AdminChat = () => {
   // Aktif odaları en üstte, diğer odaları altta göster
   const sortedRooms = [...activeRooms, ...otherRooms];
 
-  const [open, setOpen] = useState(false);
-
-  const [openRooms, setOpenRooms] = useState({});
-
   const handlePopoverOpenChange = (room, newOpen) => {
-    console.log("rooooooooooooooooooooom", room);
     setOpenRooms((prevOpenRooms) => ({
       ...prevOpenRooms,
       [room]: newOpen,

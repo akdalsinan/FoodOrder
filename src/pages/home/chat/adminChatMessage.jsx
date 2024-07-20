@@ -7,8 +7,6 @@ import io from "socket.io-client";
 const socket = io("https://food-order-backend2-5tu9.onrender.com");
 
 function AdminChatMessage({ currentRoom, messages }) {
-  // console.log("messages", messages);
-  // console.log("currentRoom", currentRoom);
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (e) => {

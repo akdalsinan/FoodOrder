@@ -11,8 +11,12 @@ import { formatPrice } from "../../../components/helper";
 import { useNavigate } from "react-router-dom";
 
 function CardItem({ urunName, foodName, foodPrice, items, foodDesc }) {
+  const apiUrl = import.meta.env.VITE_API_URI;
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  console.log("items", items);
 
   const user = useSelector((state) => state.userToken.user);
 
@@ -45,7 +49,11 @@ function CardItem({ urunName, foodName, foodPrice, items, foodDesc }) {
   return (
     <div className="relative group cursor-pointer overflow-hidden text-gray-50 h-72 w-56 rounded-2xl duration-700">
       <div className="w-56 h-72 bg-secondary text-primary flex justify-center items-center">
-        <img src={resim4} className="object-contain h-full" alt="" />
+        <img
+          src={items.foodImage ? `${apiUrl}uploads/${items.foodImage}` : resim4}
+          className="object-contain h-full mb-[65px]"
+          alt=""
+        />
       </div>
       <div className="absolute bg-primary -bottom-24 w-56 p-3 flex flex-col gap-1 group-hover:bottom-0 group-hover:duration-600 duration-500">
         <span className="text-secondary font-bold text-xs">{urunName}</span>
