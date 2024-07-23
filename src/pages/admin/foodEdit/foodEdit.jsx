@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { deleteFood, getAllFood } from "../../../services/food";
-import { Button, Form, Modal, Space, Table } from "antd";
+import { Button, Form, Modal, Popconfirm, Popover, Space, Table } from "antd";
 import { formatPrice } from "../../../components/helper";
 import FoodForm from "../foodEdit/foodForm";
 
@@ -26,6 +26,8 @@ function FoodEdit() {
     getAllFoods();
   }, []);
 
+  console.log("food", food);
+
   const handleDeleteFood = (row) => {
     deleteFood(row._id)
       .then((response) => {
@@ -50,8 +52,6 @@ function FoodEdit() {
     setSelectedRow();
     form.resetFields();
   };
-
-  // console.log("food", food[12].foodImage);
 
   const columns = [
     {
@@ -99,9 +99,13 @@ function FoodEdit() {
           >
             Güncelle
           </Button>
-          <Button danger onClick={() => handleDeleteFood(row)}>
-            Sil
-          </Button>
+
+          <Popconfirm
+            title="Silmek İstediğinize Emin misiniz?"
+            onConfirm={() => handleDeleteFood(row)}
+          >
+            <Button danger>Sil</Button>
+          </Popconfirm>
         </Space>
       ),
     },
@@ -109,9 +113,6 @@ function FoodEdit() {
 
   return (
     <>
-      {/* {food && (
-        <img src={`http://localhost:5000/uploads/${food[12].foodImage}`} />
-      )} */}
       <Table
         columns={columns}
         dataSource={food}
@@ -119,7 +120,7 @@ function FoodEdit() {
       />
 
       <Modal
-        title="fd "
+        title={selectedRow ? "Ürün Düzenle" : "Ürün Ekle"}
         open={isModalOpen}
         onCancel={handleCancel}
         footer={null}

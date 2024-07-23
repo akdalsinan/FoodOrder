@@ -16,10 +16,15 @@ import {
 } from "@ant-design/icons";
 import React, { useState } from "react";
 import { useEffect } from "react";
-
+import ImgCrop from "antd-img-crop";
 import { addFood, updateFood } from "../../../services/food";
+import "./style.css";
 
 function FoodForm({ selectedRow, form, handleOk, getAllFoods }) {
+  const apiUrl = import.meta.env.VITE_API_URI;
+
+  const [fileList, setFileList] = useState([]);
+
   const onFinish = (value) => {
     if (value.urunName === "pizza") {
       var createDataUrunName = 1;
@@ -28,12 +33,6 @@ function FoodForm({ selectedRow, form, handleOk, getAllFoods }) {
     } else if (value.urunName === "makarna") {
       var createDataUrunName = 3;
     }
-
-    const createData = {
-      foodId: selectedRow && selectedRow._id,
-      ...value,
-      urunId: createDataUrunName,
-    };
 
     const urunId = createDataUrunName;
     const foodId = selectedRow && selectedRow._id;
@@ -49,8 +48,6 @@ function FoodForm({ selectedRow, form, handleOk, getAllFoods }) {
     formData.append("foodImage", fileList[0].originFileObj);
 
     handleOk();
-
-    console.log("formData", formData);
 
     selectedRow
       ? updateFood(formData)
@@ -71,6 +68,17 @@ function FoodForm({ selectedRow, form, handleOk, getAllFoods }) {
 
   useEffect(() => {
     if (selectedRow) {
+      console.log("selectedRow", selectedRow);
+      setFileList([
+        {
+          uid: "1",
+          name: selectedRow.foodImage
+            ? selectedRow.foodImage.split("/").pop()
+            : "image.png",
+          status: "done",
+          url: `${apiUrl}uploads/${selectedRow.foodImage}`,
+        },
+      ]);
       form.setFieldsValue({
         foodName: selectedRow.foodName,
         foodDesc: selectedRow.foodDesc,
@@ -79,19 +87,20 @@ function FoodForm({ selectedRow, form, handleOk, getAllFoods }) {
       });
     } else {
       form.resetFields();
+      setFileList([]);
     }
   }, [selectedRow, form]);
 
-  const [fileList, setFileList] = useState([]);
-
-  const handleFileChange = ({ fileList }) => setFileList(fileList);
-
-  console.log("fileList", fileList);
+  const handleFileChange = ({ fileList }) => {
+    setFileList(fileList);
+  };
 
   const uploadButton = (
     <button
       style={{
-        border: 0,
+        borderRadius: "solid",
+        borderColor: "red",
+        border: 1,
         background: "none",
       }}
       type="button"
@@ -102,10 +111,25 @@ function FoodForm({ selectedRow, form, handleOk, getAllFoods }) {
           marginTop: 8,
         }}
       >
-        Upload
+        Resim Yükle
       </div>
     </button>
   );
+
+  const onPreview = async (file) => {
+    let src = file.url;
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj);
+        reader.onload = () => resolve(reader.result);
+      });
+    }
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow?.document.write(image.outerHTML);
+  };
 
   return (
     <>
@@ -118,7 +142,7 @@ function FoodForm({ selectedRow, form, handleOk, getAllFoods }) {
               rules={[
                 {
                   required: true,
-                  message: "Lütfen adres girin",
+                  message: "Lütfen Yemek İsmi Girin",
                 },
               ]}
             >
@@ -135,7 +159,7 @@ function FoodForm({ selectedRow, form, handleOk, getAllFoods }) {
               rules={[
                 {
                   required: true,
-                  message: "Lütfen adres girin",
+                  message: "Lütfen Yemek Türü Girin",
                 },
               ]}
             >
@@ -156,7 +180,7 @@ function FoodForm({ selectedRow, form, handleOk, getAllFoods }) {
               rules={[
                 {
                   required: true,
-                  message: "Lütfen adres girin",
+                  message: "Lütfen Yemek Fiyatı Girin",
                 },
               ]}
             >
@@ -173,7 +197,7 @@ function FoodForm({ selectedRow, form, handleOk, getAllFoods }) {
               rules={[
                 {
                   required: true,
-                  message: "Lütfen adres girin",
+                  message: "Lütfen Yemek Açıklama Girin",
                 },
               ]}
             >
@@ -184,20 +208,26 @@ function FoodForm({ selectedRow, form, handleOk, getAllFoods }) {
 
         <Row gutter={16}>
           <Col span={24}>
-            <Form.Item
-              label="Yemek Resmi"
-              rules={[
-                { required: true, message: "Please upload a food image!" },
-              ]}
-            >
-              <Upload
-                listType="picture"
-                beforeUpload={() => false}
-                fileList={fileList}
-                onChange={handleFileChange}
+            <Form.Item name="foodImage" label="Yemek Resmi">
+              <ImgCrop
+                modalClassName="modals"
+                // className="custom-img-crop"
+                modalOk="Yükle"
+                modalCancel="İptal"
+                modalTitle="Resmi Düzenle"
+                rotationSlider
+                aspectSlider
               >
-                {uploadButton}
-              </Upload>
+                <Upload
+                  listType="picture"
+                  beforeUpload={() => false}
+                  fileList={fileList}
+                  onChange={handleFileChange}
+                  onPreview={onPreview}
+                >
+                  {fileList.length < 1 && uploadButton}
+                </Upload>
+              </ImgCrop>
             </Form.Item>
           </Col>
         </Row>

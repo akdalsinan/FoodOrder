@@ -31,12 +31,17 @@ export const getToken = () => {
 };
 
 export const errorHandler = (error, code = null) => {
+  console.log("code", error);
   if (code === null) {
-    if (Array.isArray(error)) {
-      error.forEach((err) => MyNotification("error", err));
-    } else if (typeof error === "string") {
-      MyNotification("error", error);
+    if (error === "Request failed with status code 401") {
+      MyNotification("error", "token süresi doldu çıkış yap");
     }
+
+    // if (Array.isArray(error)) {
+    //   error.forEach(MyNotification("error", err));
+    // } else if (typeof error === "string") {
+    //   MyNotification("error", error);
+    // }
   }
 };
 

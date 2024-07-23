@@ -45,6 +45,7 @@ function CardItem({ urunName, foodName, foodPrice, items, foodDesc }) {
       });
     }
   };
+  console.log("items", items);
 
   return (
     <div className="relative group cursor-pointer overflow-hidden text-gray-50 h-72 w-56 rounded-2xl duration-700">

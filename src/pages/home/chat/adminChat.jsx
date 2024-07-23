@@ -35,6 +35,12 @@ const AdminChat = () => {
       }
     });
 
+    // socket.on("image", ({ room }) => {
+    //   if (room !== currentRoom && !unreadRooms.includes(room)) {
+    //     setUnreadRooms((prevUnreadRooms) => [...prevUnreadRooms, room]);
+    //   }
+    // });
+
     return () => {
       socket.off("updateRooms");
       socket.off("receiveMessage");
