@@ -53,26 +53,27 @@ const SignupPage = () => {
     <div className="flex  ">
       <Form className=" w-[300px] " onFinish={onFinish}>
         <Form.Item name="nameSurname">
-          <Input placeholder="Name Surname" />
+          <Input placeholder="Ad Soyad" />
         </Form.Item>
         <Form.Item name="SignEmail">
           <Input placeholder="Mail" />
         </Form.Item>
         <Form.Item name="SignPassword">
           <Input.Password
-            placeholder="password"
+            placeholder="Şifre"
             onFocus={() => setPhoto(closeeye)}
             onBlur={() => setPhoto(openeye)}
           />
         </Form.Item>
         <Checkbox onChange={onchange}></Checkbox>
-        <h className="text-gray-500">
+        <h className="text-gray-500 ">
           Kişisel Verilerimin İşlenmesine Yönelik{" "}
           <a className="">Aydınlatma Metnini</a>
           Okudum
         </h>
 
         <SliderCaptcha
+          className="mt-[10px]"
           tipText="deneme"
           mode="float"
           request={async () => {
@@ -95,9 +96,9 @@ const SignupPage = () => {
           <Button
             disabled={!(checked && slider)}
             htmlType="submit "
-            className="bg-primary text-white hover:text-secondary cursor-pointer"
+            className="bg-primary text-white hover:text-secondary mt-[15px] cursor-pointer"
           >
-            SİGN UP
+            KAYIT OL
           </Button>
         </Form.Item>
       </Form>

@@ -47,11 +47,11 @@ const LoginPage = () => {
         <div className="flex">
           <Form className=" w-[300px]" onFinish={onFinish}>
             <Form.Item name="email">
-              <Input placeholder="Email" />
+              <Input placeholder="Mail" />
             </Form.Item>
             <Form.Item name="password">
               <Input.Password
-                placeholder="password"
+                placeholder="Şifre"
                 onFocus={() => setPhoto(closeeye)}
                 onBlur={() => setPhoto(openeye)}
               />
@@ -62,7 +62,7 @@ const LoginPage = () => {
                 htmlType="submit "
                 className="bg-primary text-white hover:text-secondary cursor-pointer"
               >
-                LOGIN
+                GİRİŞ
               </Button>
             </Form.Item>
           </Form>

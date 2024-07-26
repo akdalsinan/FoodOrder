@@ -6,7 +6,7 @@ import SendMessageButton from "../sendMessageButton";
 
 const DraggableButton = ({ user }) => {
   const nodeRef = useRef(null);
-  const [position, setPosition] = useState({ x: 100, y: 600 });
+  const [position, setPosition] = useState({ x: 20, y: 150 });
 
   const handleDrag = (e, data) => {
     setPosition({ x: data.x, y: data.y });

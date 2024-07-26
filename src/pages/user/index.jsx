@@ -8,12 +8,12 @@ function User() {
   const items = [
     {
       key: "1",
-      label: "Login",
+      label: "Giriş",
       children: <LoginPage />,
     },
     {
       key: "2",
-      label: "Sign Up",
+      label: "Kayıt Ol",
       children: <SignupPage />,
     },
   ];
