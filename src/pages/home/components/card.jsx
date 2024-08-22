@@ -16,8 +16,6 @@ function CardItem({ urunName, foodName, foodPrice, items, foodDesc }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log("items", items);
-
   const user = useSelector((state) => state.userToken.user);
 
   const handleAddBasket = () => {
@@ -45,7 +43,6 @@ function CardItem({ urunName, foodName, foodPrice, items, foodDesc }) {
       });
     }
   };
-  console.log("items", items);
 
   return (
     <div className="relative group cursor-pointer overflow-hidden text-gray-50 h-72 w-56 rounded-2xl duration-700">

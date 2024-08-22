@@ -25,11 +25,14 @@ import { basketCount } from "../../reducer/basket";
 import DrawerForm from "./drawerForm";
 
 import pizzaMoney from "../../../images/pizzaMoney.jpg";
+import oturumAc from "../../../public/images/oturumAc.png";
 import CreditCard from "./creditCard";
 import Loading from "../../components/loading";
 
 import { useNavigate } from "react-router-dom";
 import { addOrder } from "../../services/order";
+import SignIn from "./signIn";
+import BasketEmpty from "./basketEmpty";
 
 function Index() {
   const [form] = Form.useForm();
@@ -45,8 +48,15 @@ function Index() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (user === null) {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log("useruseEffect", user);
     if (user && user.id) {
-      setLoading(true); // API çağrısı öncesi yüklenme durumunu true yapıyoruz
+      // setLoading(true); // API çağrısı öncesi yüklenme durumunu true yapıyoruz
 
       getAllUserBasket(user.id)
         .then((response) => {
@@ -184,9 +194,13 @@ function Index() {
         {loading ? (
           <Loading />
         ) : basketUrun.length === 0 ? (
-          <Typography.Title level={3} type="danger">
-            SEPETİNİZ BOŞ
-          </Typography.Title>
+          user === null ? (
+            <>
+              <SignIn />
+            </>
+          ) : (
+            <BasketEmpty />
+          )
         ) : (
           <div className="scrollable-list">
             <List

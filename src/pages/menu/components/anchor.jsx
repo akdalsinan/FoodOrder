@@ -13,6 +13,7 @@ const AnchorDiv = ({ id, data }) => {
               foodName={items.foodName}
               foodPrice={items.foodPrice}
               foodDesc={items.foodDesc}
+              items={items}
             />
           </Col>
         ))}

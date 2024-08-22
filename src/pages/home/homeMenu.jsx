@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row, Tabs } from "antd";
+import { Card, Col, Row, Tabs } from "antd";
 
 import CardItem from "./components/card";
 import ViewMoreButton from "./components/viewMoreButton";
+import Loading from "../../components/loading";
 
 import {
   getAllHamburgers,
@@ -14,10 +15,13 @@ function HomeMenu() {
   const [pizzas, setPizzas] = useState([]);
   const [hamburgers, setHamburgers] = useState([]);
   const [makarnas, setMakarnas] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getAllPizzas().then((res) => {
       if (res !== undefined) {
+        setLoading(false);
+
         setPizzas(res.data.resultSet);
       }
     });
@@ -36,6 +40,7 @@ function HomeMenu() {
   }, []);
 
   const maxViewCard = 6;
+  const cardArray = Array(3).fill(0);
 
   const items = [
     {
@@ -48,17 +53,35 @@ function HomeMenu() {
       children: (
         <div style={{ marginLeft: 200, marginRight: 200 }}>
           <Row gutter={[16, 24]}>
-            {pizzas.slice(0, maxViewCard).map((items) => (
-              <Col span={8} key={items.id}>
-                <CardItem
-                  items={items}
-                  urunName={items.urunName}
-                  foodName={items.foodName}
-                  foodPrice={items.foodPrice}
-                  foodDesc={items.foodDesc}
-                />
-              </Col>
-            ))}
+            {loading ? (
+              <>
+                {cardArray.map((_, index) => (
+                  <Col span={8}>
+                    <Card
+                      loading={loading}
+                      // actions={actions}
+                      style={{
+                        // backgroundColor: "black",
+                        height: "260px",
+                        width: "220px",
+                      }}
+                    ></Card>
+                  </Col>
+                ))}
+              </>
+            ) : (
+              pizzas.slice(0, maxViewCard).map((items) => (
+                <Col span={8} key={items.id}>
+                  <CardItem
+                    items={items}
+                    urunName={items.urunName}
+                    foodName={items.foodName}
+                    foodPrice={items.foodPrice}
+                    foodDesc={items.foodDesc}
+                  />
+                </Col>
+              ))
+            )}
 
             <Col span={24}>
               <ViewMoreButton linkPath={"/menu"} />
